@@ -2,7 +2,7 @@
   <div>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh" :disabled="finished">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false">
-        <art-item v-for="item in artList" :key="item.art_id" :article="item"></art-item>
+        <art-item v-for="item in artList" :key="item.art_id" :article="item" @remove-article="removeArticle"></art-item>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -54,6 +54,14 @@ export default {
     },
     onRefresh() {
       this.initArtList(true)
+    },
+    removeArticle(id) {
+      // 对原数组进行 filter 方法的过滤
+      this.artList = this.artList.filter(item => item.art_id.toString() !== id)
+      if (this.artList.length < 10) {
+        // 主动请求下一页的数据
+        this.initArtList()
+      }
     }
   },
   created() {
