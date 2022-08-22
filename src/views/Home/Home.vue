@@ -1,16 +1,5 @@
 <template>
   <div class="home-container">
-    <!-- 头部区域 -->
-    <!-- <van-nav-bar fixed> -->
-    <!-- 左侧的插槽 -->
-    <!-- <template #left> -->
-    <!-- <img src="../../assets/toutiao_logo.png" alt="logo" class="logo" /> -->
-    <!-- </template> -->
-    <!-- 右侧的插槽 -->
-    <!-- <template #right> -->
-    <!-- <van-icon name="search" color="white" size="18" /> -->
-    <!-- </template> -->
-    <!-- </van-nav-bar> -->
     <van-nav-bar fixed>
       <template #left>
         <img src="../../assets/toutiao_logo.4653c8be.png" alt="logo" class="logo" >
@@ -20,7 +9,9 @@
       </template>
     </van-nav-bar>
     <van-tabs v-model="active" sticky offset-top='1.22666667rem'>
-      <van-tab v-for="item in  userChannel" :key="item.id" :title="item.name">{{ item.name }}</van-tab>
+      <van-tab v-for="item in  userChannel" :key="item.id" :title="item.name">
+      <art-list :channel-id="item.id"></art-list>
+      </van-tab>
     </van-tabs>
     <!-- 频道列表的标签页 -->
     <van-tabs v-model="active" sticky offset-top="1.22666667rem"></van-tabs>
@@ -32,6 +23,7 @@
 
 <script>
 import { getUserChannelAPI } from '@/api/homeAPI'
+import ArtList from '@/components/ArtList/ArtList.vue'
 export default {
   name: 'Home',
   data() {
@@ -39,6 +31,9 @@ export default {
       active: 0,
       userChannel: []
     }
+  },
+  components:{
+    ArtList
   },
   methods: {
     async initUserChannel() {
