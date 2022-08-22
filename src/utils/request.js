@@ -7,7 +7,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
   config => {
     const tokenStr = store.state.initState.tokenInfo.token
-    console.log(tokenStr,store.state); 
     if (tokenStr) {
       // 3. 添加身份认证字段
       config.headers.Authorization = `Bearer ${tokenStr}`
