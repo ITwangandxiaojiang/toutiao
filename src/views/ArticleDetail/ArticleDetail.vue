@@ -34,15 +34,21 @@
 
       <!-- 点赞 -->
       <div class="like-box">
-        <van-button icon="good-job" type="danger" size="small" v-if="article.attitude === 1" @click="setDislike">已点赞</van-button>
+        <van-button icon="good-job" type="danger" size="small" v-if="article.attitude === 1" @click="setDislike">已点赞
+        </van-button>
         <van-button icon="good-job-o" type="danger" plain size="small" v-else @click="setLike">点赞</van-button>
       </div>
     </div>
+
+    <!-- 文章的评论组件 -->
+    <art-cmt :art-id="id"></art-cmt>
   </div>
 </template>
 
 <script>
 import { getArticleDetailAPI, followUserAPI, unfollowUserAPI, addLikeAPI, delLikeAPI } from '@/api/articleAPI.js'
+// 导入文章的评论组件
+import ArtCmt from '@/components/ArtCmt/ArtCmt.vue'
 export default {
   name: 'ArticleDetail',
   data() {
@@ -51,6 +57,9 @@ export default {
     }
   },
   props: ['id'],
+  components: {
+    ArtCmt
+  },
   methods: {
     // 初始化文章的数据
     async initArticle() {
@@ -94,7 +103,7 @@ export default {
     },
     async setDislike() {
       const res = await delLikeAPI(this.id);
-      if(res.status === 204){
+      if (res.status === 204) {
         this.$toast.success('取消点赞成功')
         this.article.attitude = -1
       }
