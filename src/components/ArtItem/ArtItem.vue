@@ -39,7 +39,8 @@
           @click="reportArticle(item.type)" />
       </div>
     </van-action-sheet>
-    <van-icon name="cross" @click.stop="show = true" />
+    <!-- 关闭按钮 -->
+    <van-icon name="cross" @click.stop="show = true"  v-if="closable"/>
   </div>
 </template>
 
@@ -64,6 +65,10 @@ export default {
     article: {
       type: Object,
       required: true
+    },
+    closable:{
+      type:Boolean,
+      default:true
     }
   },
   computed: {

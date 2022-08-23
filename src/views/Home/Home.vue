@@ -5,7 +5,7 @@
         <img src="../../assets/toutiao_logo.4653c8be.png" alt="logo" class="logo">
       </template>
       <template #right>
-        <van-icon name="search" color="white" size="18" />
+        <van-icon name="search" color="white" size="18" @click="$router.push('/search')"/>
       </template>
     </van-nav-bar>
     <van-tabs v-model="active" sticky offset-top='1.22666667rem'>
